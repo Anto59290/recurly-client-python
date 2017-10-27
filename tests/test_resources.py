@@ -932,6 +932,9 @@ class TestResources(RecurlyTest):
             sub_errs = err.errors['subscription.account.account_code']
             self.assertEqual(len(sub_errs), 2)
             self.assertEqual(type(sub_errs[1]), recurly.errors.ValidationError.Suberror)
+            # make sure we aren't falling back to default Suberror string
+            # represenation
+            self.assertFalse("Suberror" in str(err))
         except e:
             self.fail("Failed subscription did not raise a Validation error")
 
